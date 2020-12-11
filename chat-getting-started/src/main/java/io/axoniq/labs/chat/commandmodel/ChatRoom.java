@@ -1,7 +1,7 @@
 package io.axoniq.labs.chat.commandmodel;
 
 import io.axoniq.labs.chat.coreapi.*;
-import org.springframework.context.annotation.Profile;
+// import org.springframework.context.annotation.Profile;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -16,7 +16,7 @@ import java.lang.invoke.MethodHandles;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
-@Profile("command")
+// @Profile("command")
 public class ChatRoom {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
