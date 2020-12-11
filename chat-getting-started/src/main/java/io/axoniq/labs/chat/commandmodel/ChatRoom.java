@@ -1,6 +1,19 @@
 package io.axoniq.labs.chat.commandmodel;
 
+import io.axoniq.labs.chat.coreapi.*;
+import org.springframework.context.annotation.Profile;
+import org.axonframework.spring.stereotype.Aggregate;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateIdentifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Set;
+import java.util.HashSet;
+import java.lang.invoke.MethodHandles;
+
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
 @Profile("command")
