@@ -22,8 +22,7 @@ public class CommandController {
 
     @PostMapping("/rooms")
     public Future<String> createChatRoom(@RequestBody @Valid Room room) {
-        // TODO: Send a command for this API call.
-        throw new UnsupportedOperationException("Not implemented yet");
+        return commandGateway.send(new CreateRoomCommand(UUID.randomUUID().toString(), "room"));
     }
 
     @PostMapping("/rooms/{roomId}/participants")
