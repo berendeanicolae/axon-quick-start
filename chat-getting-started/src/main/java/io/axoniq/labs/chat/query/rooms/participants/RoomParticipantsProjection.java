@@ -1,6 +1,13 @@
 package io.axoniq.labs.chat.query.rooms.participants;
 
+import io.axoniq.labs.chat.coreapi.*;
+import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Component
 public class RoomParticipantsProjection {
@@ -11,7 +18,18 @@ public class RoomParticipantsProjection {
         this.repository = repository;
     }
 
-    // TODO: Create some event handlers that update this model when necessary.
+    @EventHandler
+    public void on(ParticipantJoinedRoomEvent evt) {
+        repository.save(new RoomParticipant(evt.getRoomId(), evt.getParticipant()));
+    }
 
-    // TODO: Create the query handler to read data from this model.
+    @EventHandler
+    public void on(ParticipantLeftRoomEvent evt) {
+        repository.deleteByParticipantAndRoomId(evt.getParticipant(), evt.getRoomId());
+    }
+
+    @QueryHandler
+    public List<String> query(RoomParticipantsQuery query) {
+        return repository.findRoomParticipantsByRoomId(query.getRoomId()).stream().map(RoomParticipant::getParticipant).sorted().collect(toList());
+    }
 }
