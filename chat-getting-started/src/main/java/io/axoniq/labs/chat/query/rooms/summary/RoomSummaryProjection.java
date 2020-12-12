@@ -17,17 +17,17 @@ public class RoomSummaryProjection {
     }
 
     @EventHandler
-    public void on(CreateRoomCommand evt) {
+    public void on(RoomCreatedEvent evt) {
         roomSummaryRepository.save(new RoomSummary(evt.getRoomId(), evt.getName()));
     }
 
     @EventHandler
-    public void on(JoinRoomCommand evt) {
+    public void on(ParticipantJoinedRoomEvent evt) {
         roomSummaryRepository.getOne(evt.getRoomId()).addParticipant();
     }
 
     @EventHandler
-    public void on(LeaveRoomCommand evt) {
+    public void on(ParticipantLeftRoomEvent evt) {
         roomSummaryRepository.getOne(evt.getRoomId()).removeParticipant();
     }
 
